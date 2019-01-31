@@ -26,8 +26,8 @@ jobs:
       script:
         - cd sparkjava
         - docker build . -t devinsba/hello-world-nativeimages:sparkjava
-        - docker run -d --name=sparkjava -p 4567:4567 devinsba/hello-world-nativeimages:sparkjava
-        - curl http://localhost:4567/hello
+        - docker run -d --name=sparkjava -p 8080:8080 devinsba/hello-world-nativeimages:sparkjava
+        - curl http://localhost:8080
         - docker stop sparkjava
         - docker rm sparkjava
       after_failure:
