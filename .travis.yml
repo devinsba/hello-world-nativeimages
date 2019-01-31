@@ -11,18 +11,7 @@ before_install:
 jobs:
   include:
     - stage: build
-      name: "Undertow"
-      script:
-        - cd undertow
-        - docker build . -t devinsba/hello-world-nativeimages:undertow
-        - docker run -d --name=undertow -p 8080:8080 devinsba/hello-world-nativeimages:undertow
-        - curl http://localhost:8080
-        - docker stop undertow
-        - docker rm undertow
-      after_failure:
-        - docker logs undertow
-    - stage: build
-      name: "Dropwizard"
+      name: "dropwizard"
       script:
         - cd dropwizard
         - docker build . -t devinsba/hello-world-nativeimages:dropwizard
@@ -32,3 +21,25 @@ jobs:
         - docker rm dropwizard
       after_failure:
         - docker logs dropwizard
+    - stage: build
+      name: "sparkjava"
+      script:
+        - cd sparkjava
+        - docker build . -t devinsba/hello-world-nativeimages:sparkjava
+        - docker run -d --name=sparkjava -p 4567:4567 devinsba/hello-world-nativeimages:sparkjava
+        - curl http://localhost:4567/hello
+        - docker stop sparkjava
+        - docker rm sparkjava
+      after_failure:
+        - docker logs sparkjava
+    - stage: build
+      name: "undertow"
+      script:
+        - cd undertow
+        - docker build . -t devinsba/hello-world-nativeimages:undertow
+        - docker run -d --name=undertow -p 8080:8080 devinsba/hello-world-nativeimages:undertow
+        - curl http://localhost:8080
+        - docker stop undertow
+        - docker rm undertow
+      after_failure:
+        - docker logs undertow
