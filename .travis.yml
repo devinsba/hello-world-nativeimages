@@ -21,3 +21,14 @@ jobs:
         - docker rm undertow
       after_failure:
         - docker logs undertow
+    - stage: build
+      name: "Dropwizard"
+      script:
+        - cd dropwizard
+        - docker build . -t devinsba/hello-world-nativeimages:dropwizard
+        - docker run -d --name=dropwizard -p 8080:8080 devinsba/hello-world-nativeimages:dropwizard
+        - curl http://localhost:8080
+        - docker stop dropwizard
+        - docker rm dropwizard
+      after_failure:
+        - docker logs dropwizard
