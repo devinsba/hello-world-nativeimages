@@ -15,5 +15,9 @@ jobs:
       script:
         - cd undertow
         - docker build . -t devinsba/hello-world-nativeimages:undertow
-        - docker run -d -p 8080:8080 devinsba/hello-world-nativeimages:undertow
+        - docker run -d --name=undertow -p 8080:8080 devinsba/hello-world-nativeimages:undertow
         - curl http://localhost:8080
+        - docker stop undertow
+        - docker rm undertow
+      after_failure:
+        - docker logs undertow
