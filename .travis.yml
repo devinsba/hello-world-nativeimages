@@ -1,0 +1,17 @@
+language: python
+
+services:
+  - docker
+
+before_install:
+  - docker pull maven:3.6.0-jdk-8-alpine
+  - docker pull oracle/graalvm-ce:1.0.0-rc11
+  - docker pull frolvlad/alpine-glibc
+
+jobs:
+  include:
+    - stage: build
+      name: "Undertow"
+      script:
+        - cd undertow
+        - docker build .
