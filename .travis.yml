@@ -11,6 +11,17 @@ before_install:
 jobs:
   include:
     - stage: build
+      name: "akkahttp"
+      script:
+        - cd akkahttp
+        - docker build . -t devinsba/hello-world-nativeimages:akkahttp
+        - docker run -d --name=akkahttp -p 8080:8080 devinsba/hello-world-nativeimages:akkahttp
+        - curl http://localhost:8080
+        - docker stop akkahttp
+        - docker rm akkahttp
+      after_failure:
+        - docker logs akkahttp
+    - stage: build
       name: "dropwizard"
       script:
         - cd dropwizard
