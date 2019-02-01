@@ -43,3 +43,14 @@ jobs:
         - docker rm undertow
       after_failure:
         - docker logs undertow
+    - stage: build
+      name: "webflux"
+      script:
+        - cd webflux
+        - docker build . -t devinsba/hello-world-nativeimages:webflux
+        - docker run -d --name=webflux -p 8080:8080 devinsba/hello-world-nativeimages:webflux
+        - curl http://localhost:8080
+        - docker stop webflux
+        - docker rm webflux
+      after_failure:
+        - docker logs webflux
