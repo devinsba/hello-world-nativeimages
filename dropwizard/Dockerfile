@@ -12,10 +12,7 @@ RUN native-image --no-server \
                  -H:EnableURLProtocols=http \
                  -H:Name=hello-world \
                  -H:Class=com.briandevins.nativeimages.HelloWorld \
-                 --allow-incomplete-classpath \
-                 --report-unsupported-elements-at-runtime \
-                 -H:ReflectionConfigurationFiles=/home/app/src/main/docker/reflect.json \
-                 -H:IncludeResources=META-INF/services/*.*
+                 --allow-incomplete-classpath
 
 
 FROM frolvlad/alpine-glibc
