@@ -5,21 +5,30 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.briandevins</groupId>
-    <artifactId>hello-world-nativeimage-undertow</artifactId>
+    <artifactId>hello-world-nativeimage-armeria</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <armeria.version>0.79.0</armeria.version>
+        <slf4j.version>1.7.25</slf4j.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>io.undertow</groupId>
-            <artifactId>undertow-core</artifactId>
-            <version>2.0.17.Final</version>
+            <groupId>com.linecorp.armeria</groupId>
+            <artifactId>armeria</artifactId>
+            <version>${armeria.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.oracle.substratevm</groupId>
             <artifactId>svm</artifactId>
