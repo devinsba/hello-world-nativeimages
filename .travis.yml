@@ -30,13 +30,13 @@ jobs:
         - cd armeria
         - mvn -U clean install
         - docker run -d --name=armeria -p 8080:8080 -v `pwd`:/build oracle/graalvm-ce:1.0.0-rc16 java -agentlib:native-image-agent=config-output-dir=/build/target/native-config -jar /build/target/hello-world.jar
-        - sleep 5s && curl http://localhost:8080
+        - sleep 5s && curl http://localhost:8080 || travis_terminate 1
         - docker stop armeria
         - docker rm armeria
         - docker run -v `pwd`:/build oracle/graalvm-ce:1.0.0-rc16 native-image --no-fallback --no-server --class-path /build/target/hello-world.jar --configurations-path /build/target/native-config -H:EnableURLProtocols=http -H:Name=/build/target/hello-world -H:Class=com.briandevins.nativeimages.HelloWorld -H:-UseServiceLoaderFeature --delay-class-initialization-to-runtime=com.linecorp.armeria.common.CommonPools,com.linecorp.armeria.internal.PathAndQuery,com.linecorp.armeria.server.RouteCache
         - docker build . -t devinsba/hello-world-nativeimages:armeria
         - docker run -d --name=armeria -p 8080:8080 devinsba/hello-world-nativeimages:armeria
-        - sleep 5s && curl http://localhost:8080
+        - sleep 5s && curl http://localhost:8080 || travis_terminate 1
         - docker stop armeria
         - docker rm armeria
       after_failure:
