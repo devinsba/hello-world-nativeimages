@@ -1,11 +1,16 @@
-language: python
+language: java
+jdk:
+  - openjdk8
+
+cache:
+  directories:
+    - "$HOME/.m2"
 
 services:
   - docker
 
 before_install:
-  - docker pull maven:3.6.0-jdk-8-alpine
-  - docker pull oracle/graalvm-ce:1.0.0-rc14
+  - docker pull oracle/graalvm-ce:1.0.0-rc16
   - docker pull frolvlad/alpine-glibc
 
 jobs:
@@ -14,65 +19,29 @@ jobs:
       name: "akkahttp"
       script:
         - cd akkahttp
-        - docker build . -t devinsba/hello-world-nativeimages:akkahttp
-        - docker run -d --name=akkahttp -p 8080:8080 devinsba/hello-world-nativeimages:akkahttp
-        - curl http://localhost:8080
-        - docker stop akkahttp
-        - docker rm akkahttp
-      after_failure:
-        - docker logs akkahttp
+        - mvn -U clean install
     - stage: build
       name: "armeria"
       script:
         - cd armeria
-        - docker build . -t devinsba/hello-world-nativeimages:armeria
-        - docker run -d --name=armeria -p 8080:8080 devinsba/hello-world-nativeimages:armeria
-        - curl http://localhost:8080
-        - docker stop armeria
-        - docker rm armeria
-      after_failure:
-        - docker logs akkahttp
+        - mvn -U clean install
     - stage: build
       name: "dropwizard"
       script:
         - cd dropwizard
-        - docker build . -t devinsba/hello-world-nativeimages:dropwizard
-        - docker run -d --name=dropwizard -p 8080:8080 devinsba/hello-world-nativeimages:dropwizard
-        - curl http://localhost:8080
-        - docker stop dropwizard
-        - docker rm dropwizard
-      after_failure:
-        - docker logs dropwizard
+        - mvn -U clean install
     - stage: build
       name: "sparkjava"
       script:
         - cd sparkjava
-        - docker build . -t devinsba/hello-world-nativeimages:sparkjava
-        - docker run -d --name=sparkjava -p 8080:8080 devinsba/hello-world-nativeimages:sparkjava
-        - curl http://localhost:8080
-        - docker stop sparkjava
-        - docker rm sparkjava
-      after_failure:
-        - docker logs sparkjava
+        - mvn -U clean install
     - stage: build
       name: "undertow"
       script:
         - cd undertow
-        - docker build . -t devinsba/hello-world-nativeimages:undertow
-        - docker run -d --name=undertow -p 8080:8080 devinsba/hello-world-nativeimages:undertow
-        - curl http://localhost:8080
-        - docker stop undertow
-        - docker rm undertow
-      after_failure:
-        - docker logs undertow
+        - mvn -U clean install
     - stage: build
       name: "webflux"
       script:
         - cd webflux
-        - docker build . -t devinsba/hello-world-nativeimages:webflux
-        - docker run -d --name=webflux -p 8080:8080 devinsba/hello-world-nativeimages:webflux
-        - curl http://localhost:8080
-        - docker stop webflux
-        - docker rm webflux
-      after_failure:
-        - docker logs webflux
+        - mvn -U clean install
