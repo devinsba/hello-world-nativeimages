@@ -28,13 +28,6 @@
             <artifactId>slf4j-simple</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
-
-        <dependency>
-            <groupId>com.oracle.substratevm</groupId>
-            <artifactId>svm</artifactId>
-            <version>1.0.0-rc11</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 
     <build>
