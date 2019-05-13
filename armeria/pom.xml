@@ -13,7 +13,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <armeria.version>0.79.0</armeria.version>
+        <armeria.version>0.85.0</armeria.version>
         <slf4j.version>1.7.26</slf4j.version>
     </properties>
 
